@@ -33,7 +33,8 @@ const signup = async(req,res)=>{
                     role
                 }
                 let data = await UserModel.create(user)
-                res.render("login")
+                const token = jwt.sign({id:data.id,role:data.role},"token")
+                res.cookie("token",token).render("profile")
             }
         })
     }
@@ -45,7 +46,7 @@ const login = async(req,res)=>{
     if(data){
         bcrypt.compare(password,data.password,(err,result)=>{
             if(result){
-                const token = jwt.sign({id:data.id},"token")
+                const token = jwt.sign({id:data.id,role:data.role},"token")
                 res.cookie("token",token).render("profile")
             }
             else{
