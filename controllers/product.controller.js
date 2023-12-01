@@ -1,11 +1,18 @@
 const ProductModel = require("../models/product.model")
 
 const create = async(req,res) =>{
-    let data = await ProductModel.create(req.body)
-    res.render("showproduct")
+    try {
+        req.createdBy = req.user.id
+        let data = await ProductModel.create(req.body)
+        res.send(data)
+    } catch (error) {
+        if(error){
+            res.send(error)
+        }
+    }
 }
 
-const createshow = ()=>{
+const createshow = (req,res)=>{
     res.render("product")
 }
 

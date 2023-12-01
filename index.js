@@ -11,8 +11,8 @@ app.set("views",__dirname + "/views")
 app.use(express.urlencoded({extended:true}))
 app.use(express.static(__dirname + "/public"))
 app.use(cookie())
-app.use("user",UserRoute)
-app.use("product",ProductRoute)
+app.use("/user",UserRoute)
+app.use("/product",ProductRoute)
 
 app.listen(process.env.PORT,()=>{
     console.log("Server is listening...");
